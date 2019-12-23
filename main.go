@@ -9,28 +9,28 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// 4. Define the Structure of my Articles
-type Article struct {
-	Title   string `json:"Title"`
-	Desc    string `json:"desc"`
-	Content string `json:"content"`
+// 4. Define the Structure of my Song
+type Song struct {
+	Title  string `json:"Title"`
+	Artist string `json:"Artist"`
+	Song   string `json:"Song"`
 }
 
-// 5. Define my Artiles as an Array
-type Articles []Article
+// 5. Define my Songs as an Array
+type Songs []Song
 
-// 6. All Articles Function
-func allArticles(w http.ResponseWriter, r *http.Request) {
+// 6. All Songs Function
+func allSongs(w http.ResponseWriter, r *http.Request) {
 
 	// Dummy Data
-	articles := Articles{
-		Article{Title: "Golang", Desc: "Google Golang Language", Content: "Hello World GoLang #GangGang"},
+	songs := Songs{
+		Song{Title: "Golanger", Artist: "Google Golang Language", Song: "GoLang #GangGang"},
 	}
 	fmt.Println("Endpoint Hit: All Articles Endpoint")
-	json.NewEncoder(w).Encode(articles)
+	json.NewEncoder(w).Encode(songs)
 }
 
-func testPostArticles(w http.ResponseWriter, r *http.Request) {
+func testPostSongs(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Test POST endpoints work")
 }
 
@@ -44,8 +44,8 @@ func handleRequest() {
 
 	myRouter := mux.NewRouter().StrictSlash(true)
 	myRouter.HandleFunc("/", homePage)
-	myRouter.HandleFunc("/articles", allArticles).Methods("GET")
-	myRouter.HandleFunc("/articles", testPostArticles).Methods("POST")
+	myRouter.HandleFunc("/songs", allSongs).Methods("GET")
+	myRouter.HandleFunc("/songs", testPostSongs).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8081", myRouter))
 }
 
